@@ -1,0 +1,6 @@
+{
+  "name": "StudyMate",
+  "description": "Student study management app to organize daily schedule, timetable, notes, homework, exams, attendance, and study goals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
