@@ -144,6 +144,8 @@ fun StudyMateApp(viewModel: StudyMateViewModel) {
                         StudyMateTopAppBar(
                             title = currentDestination.label,
                             unreadNotificationCount = notifications.size,
+                            canNavigateBack = !showBottomBar && currentDestination != AppDestination.DASHBOARD,
+                            onBackClick = { viewModel.navigateBack() },
                             onMenuClick = {
                                 coroutineScope.launch {
                                     if (drawerState.isClosed) drawerState.open() else drawerState.close()
@@ -350,7 +352,10 @@ fun StudyMateApp(viewModel: StudyMateViewModel) {
                             AboutScreen()
                         }
                         AppDestination.PRIVACY_POLICY -> {
-                            PrivacyPolicyScreen()
+                            PrivacyPolicyScreen(
+                                onBack = { viewModel.navigateBack() },
+                                onNavigateToSupport = { viewModel.navigateTo(AppDestination.HELP_SUPPORT) }
+                            )
                         }
                         AppDestination.TERMS -> {
                             TermsScreen()

@@ -1,6 +1,7 @@
 package com.example.ui.screens.auth
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -51,6 +52,7 @@ fun SignUpScreen(
     var passwordVisible by remember { mutableStateOf(false) }
     var confirmPasswordVisible by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
+    var showPrivacyPolicyDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -281,7 +283,31 @@ fun SignUpScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Privacy Policy notice
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "By signing up, you agree to our ",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    text = "Privacy Policy",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .clickable { showPrivacyPolicyDialog = true }
+                        .testTag("signup_privacy_policy_link")
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -297,6 +323,29 @@ fun SignUpScreen(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        if (showPrivacyPolicyDialog) {
+            AlertDialog(
+                onDismissRequest = { showPrivacyPolicyDialog = false },
+                title = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.PrivacyTip, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Privacy Policy")
+                    }
+                },
+                text = {
+                    Box(modifier = Modifier.heightIn(max = 420.dp)) {
+                        com.example.ui.screens.info.PrivacyPolicyScreen()
+                    }
+                },
+                confirmButton = {
+                    Button(onClick = { showPrivacyPolicyDialog = false }) {
+                        Text("I Agree")
+                    }
+                }
+            )
         }
     }
 }

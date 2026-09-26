@@ -3,6 +3,7 @@ package com.example.ui.components
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
@@ -23,6 +24,8 @@ import com.example.viewmodel.AppDestination
 fun StudyMateTopAppBar(
     title: String,
     unreadNotificationCount: Int = 0,
+    canNavigateBack: Boolean = false,
+    onBackClick: () -> Unit = {},
     onMenuClick: () -> Unit,
     onSearchClick: () -> Unit,
     onNotificationsClick: () -> Unit,
@@ -40,14 +43,26 @@ fun StudyMateTopAppBar(
             }
         },
         navigationIcon = {
-            IconButton(
-                onClick = onMenuClick,
-                modifier = Modifier.testTag("topbar_menu_button")
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = "Open Navigation Menu"
-                )
+            if (canNavigateBack) {
+                IconButton(
+                    onClick = onBackClick,
+                    modifier = Modifier.testTag("topbar_back_button")
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Navigate back"
+                    )
+                }
+            } else {
+                IconButton(
+                    onClick = onMenuClick,
+                    modifier = Modifier.testTag("topbar_menu_button")
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = "Open Navigation Menu"
+                    )
+                }
             }
         },
         actions = {

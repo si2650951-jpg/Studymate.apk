@@ -99,34 +99,7 @@ private fun AboutBullet(text: String) {
     )
 }
 
-@Composable
-fun PrivacyPolicyScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Text(
-            text = "Privacy Policy",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold
-        )
 
-        Text(
-            text = "Last updated: September 2026. Your privacy and academic integrity are essential to us.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-
-        PolicyCard("1. Account Information", "When registering an account on StudyMate, we collect your name, email address, mobile number, educational institution, and course. This information is solely used to personalize your study management experience.")
-        PolicyCard("2. Student Data & Notes Isolation", "All notes, homework assignments, timetable items, and study goals created by you are strictly private. Firebase Security Rules ensure only your authenticated account can read, edit, or delete your study data. Administrators cannot access your private student notes.")
-        PolicyCard("3. Firebase Storage & Cloud Sync", "Your notes and study sessions are synchronized with Google Firebase Firestore and Firebase Storage using industry-standard TLS encryption. You can export or clear your local cache at any time.")
-        PolicyCard("4. Notifications & Alerts", "Study reminders and attendance threshold alerts are scheduled to notify you of upcoming deadlines. You can customize or disable individual notification categories in Settings.")
-        PolicyCard("5. Data Deletion", "You retain the right to delete your study materials or close your account. Contact support or use account deletion under Profile settings to permanently wipe all associated data.")
-    }
-}
 
 @Composable
 fun TermsScreen() {

@@ -41,6 +41,7 @@ fun LoginScreen(
     var showForgotPasswordDialog by remember { mutableStateOf(false) }
     var forgotEmail by remember { mutableStateOf("") }
     var forgotSuccessMsg by remember { mutableStateOf<String?>(null) }
+    var showPrivacyPolicyDialog by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -326,6 +327,50 @@ fun LoginScreen(
                     )
                 }
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            TextButton(
+                onClick = { showPrivacyPolicyDialog = true },
+                modifier = Modifier.testTag("login_privacy_policy_button")
+            ) {
+                Icon(
+                    imageVector = Icons.Default.PrivacyTip,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = "StudyMate Privacy Policy",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+
+        // Privacy Policy dialog
+        if (showPrivacyPolicyDialog) {
+            AlertDialog(
+                onDismissRequest = { showPrivacyPolicyDialog = false },
+                title = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.PrivacyTip, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Privacy Policy")
+                    }
+                },
+                text = {
+                    Box(modifier = Modifier.heightIn(max = 420.dp)) {
+                        com.example.ui.screens.info.PrivacyPolicyScreen()
+                    }
+                },
+                confirmButton = {
+                    Button(onClick = { showPrivacyPolicyDialog = false }) {
+                        Text("Close")
+                    }
+                }
+            )
         }
 
         // Forgot password dialog
